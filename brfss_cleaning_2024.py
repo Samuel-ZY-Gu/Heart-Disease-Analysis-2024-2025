@@ -23,6 +23,7 @@ categorical_columns = [
     col for col in target_columns
     if col not in numeric_columns + survey_columns
 ]
+
 print("Numerical:", numeric_columns,"\nSurvey:", survey_columns,"\nCategorical:", categorical_columns)
 
 df_numeric_clean = df_selected.copy()

@@ -188,3 +188,7 @@ cython_debug/
 
 # Local datasets
 data/
+
+rf_oof_2024.csv
+rf_threshold_2024.csv
+heart_disease_model.joblib
