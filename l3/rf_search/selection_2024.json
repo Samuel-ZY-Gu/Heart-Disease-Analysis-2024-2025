@@ -1,0 +1,56 @@
+{
+  "objective": "Maximize pooled 2024 OOF average precision, ROC-AUC breaks ties",
+  "best_candidate": "rf_refine_03",
+  "best_parameters": {
+    "bootstrap": true,
+    "ccp_alpha": 0.0,
+    "class_weight": null,
+    "criterion": "gini",
+    "max_depth": 18,
+    "max_features": "sqrt",
+    "max_leaf_nodes": null,
+    "max_samples": null,
+    "min_impurity_decrease": 0.0,
+    "min_samples_leaf": 10,
+    "min_samples_split": 2,
+    "min_weight_fraction_leaf": 0.0,
+    "monotonic_cst": null,
+    "n_estimators": 400,
+    "n_jobs": 4,
+    "oob_score": false,
+    "random_state": 42,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "rf_candidates_evaluated": 28,
+  "matched_recall_threshold": 0.1544701889725446,
+  "target_lr_oof_recall": 0.5767180311107866,
+  "cv_best_rf": {
+    "threshold": 0.15,
+    "AP": 0.29334793660332803,
+    "ROC_AUC": 0.8060632401625797,
+    "precision": 0.25622573619922356,
+    "recall": 0.5928576645001096,
+    "TN": 325514,
+    "FP": 70695,
+    "FN": 16725,
+    "TP": 24354
+  },
+  "cv_lr": {
+    "threshold": 0.15,
+    "AP": 0.2967974218212947,
+    "ROC_AUC": 0.8088995298593482,
+    "precision": 0.2654810730854569,
+    "recall": 0.5767180311107866,
+    "TN": 330662,
+    "FP": 65547,
+    "FN": 17388,
+    "TP": 23691
+  },
+  "limitations": [
+    "Best within the recorded search, not a global optimum.",
+    "Search CV is used for selection; it is not a nested-CV performance estimate.",
+    "2025 was already inspected in the original project and is not a pristine holdout.",
+    "Unweighted sample evaluation, as in L2."
+  ]
+}

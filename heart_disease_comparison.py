@@ -36,7 +36,10 @@ print(f"Change (percentage points): {change_pp:+.2f}")
 def grouped_prevalence(data, column):
     total = data.groupby(column)["_LLCPWT"].sum()
     cases = data.loc[data["_MICHD"] == 1].groupby(column)["_LLCPWT"].sum()
-    return cases / total * 100
+    return (
+            cases.reindex(total.index, fill_value=0)
+            / total.replace(0, float("nan")) * 100
+    )
 
 group_variables = {
     "Age": "_AGEG5YR",
@@ -103,7 +106,9 @@ for name, result in comparisons.items():
         continue
 
     plot_data = result[["2024 (%)", "2025 (%)"]].copy()
-    plot_data.index = label_maps[name]
+    plot_data.rename(
+        index=dict(enumerate(label_maps[name], start=1)), inplace=True
+    )
 
     plot_data.plot(kind="bar", figsize=(8, 5), rot=0)
 

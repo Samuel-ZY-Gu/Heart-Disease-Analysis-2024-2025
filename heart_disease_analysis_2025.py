@@ -4,11 +4,14 @@ import pandas as pd
 
 def calculate_prevalence(data, column):
     table = data.groupby(column)["_MICHD"].value_counts().unstack(fill_value=0)
-    table["Prevalence (%)"] = table[1.0] / table.sum(axis=1) * 100
+    table["Prevalence (%)"] = table.get(1.0, 0) / table.sum(axis=1) * 100
 
     total = data.groupby(column)["_LLCPWT"].sum()
     cases = data.loc[data["_MICHD"] == 1].groupby(column)["_LLCPWT"].sum()
-    table["Weighted Prevalence (%)"] = cases / total * 100
+    table["Weighted Prevalence (%)"] = (
+            cases.reindex(total.index, fill_value=0)
+            / total.replace(0, float("nan")) * 100
+    )
 
     return table
 
@@ -56,7 +59,7 @@ variables = {
 
 for name, (column, labels, filename) in variables.items():
     table = calculate_prevalence(valid, column)
-    table.index = labels
+    table.rename(index=dict(enumerate(labels, start=1)), inplace=True)
 
     print(f"\n{name} Analysis:\n", table.round(2))
 
